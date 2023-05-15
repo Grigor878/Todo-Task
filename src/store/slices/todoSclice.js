@@ -1,4 +1,4 @@
-import { createSlice, configureStore } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const todoSlice = createSlice({
   name: "todos",
@@ -51,9 +51,4 @@ const todoSlice = createSlice({
 
 export const { addTodo, deleteTodo, updateTodo, toggleCompleted } =
   todoSlice.actions;
-
-export default configureStore({
-  reducer: {
-    todos: todoSlice.reducer,
-  },
-});
+export default todoSlice.reducer;

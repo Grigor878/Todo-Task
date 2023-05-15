@@ -1,28 +1,25 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addTodo } from '../store/store'
+import { useDispatch } from 'react-redux'
+import { addTodo } from '../../store/slices/todoSclice'
 import './Styles.scss'
 
 const TodoFrom = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [deadline, setDeadline] = useState('');
 
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [deadline, setDeadline] = useState("")
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
+    const handleSubmit = e => {
+        e.preventDefault();
         dispatch(addTodo({
             title,
             description,
-            deadline
-        }))
-
-        setTitle("")
-        setDescription("")
-        setDeadline("")
-    }
+            deadline,
+        }));
+        setTitle('');
+        setDescription('');
+        setDeadline('');
+    };
 
     return (
         <form onSubmit={handleSubmit} className='todo__form'>
@@ -50,7 +47,7 @@ const TodoFrom = () => {
                 required
                 className='todo__form-input'
             />
-            <button type='submit' className='form__form-btn'>Add</button>
+            <button type='submit' className='todo__form-btn'>Add Todo</button>
         </form>
     )
 }

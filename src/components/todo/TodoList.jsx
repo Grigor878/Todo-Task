@@ -1,35 +1,28 @@
-import React from 'react'
-import './Styles.scss'
+import React from 'react';
+import TodoItem from './TodoItem';
+import './Styles.scss';
 
-const TodoList = ({ todos, handleToggleCompleted, handleEdit, handleDelete }) => {
-    return (
-        <div className='todolist'>
-            {todos?.map((todo) => {
-                return (
-                    <div
-                        key={todo.index}
-                        className={todo.completed ? 'todolist__completed' : ''}
-                    >
-                        <input
-                            type="checkbox"
-                            checked={todo.completed}
-                            onChange={() => handleToggleCompleted(todo.id)}
-                        />
-                        <div className='todolist__details'>
-                            <div className="todolist__details-title">{todo.title}</div>
-                            <div className="todolist__details-title">{todo.description}</div>
-                            <div className="todolist__details-title">{todo.deadline}</div>
-                        </div>
+const TodoList = ({ todos, onToggleCompleted, onEditTodo, onDeleteTodo }) => {
 
-                        <div className="todolist__actions">
-                            <button onClick={() => handleEdit(todo.id)}>Edit</button>
-                            <button onClick={() => handleDelete(todo.id)}>Delete</button>
-                        </div>
-                    </div>
-                )
-            })}
-        </div>
-    )
-}
+  const completedCount = todos.filter(todo => todo.completed).length;
 
-export default TodoList
+  return (
+    <div className='todolist'>
+      {todos.length
+        ? <p>Completed Items: {completedCount}</p>
+        : null
+      }
+      {todos.map(todo => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onToggleCompleted={onToggleCompleted}
+          onEdit={onEditTodo}
+          onDelete={onDeleteTodo}
+        />
+      ))}
+    </div>
+  );
+};
+
+export default TodoList;
